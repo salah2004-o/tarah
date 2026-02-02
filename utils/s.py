@@ -3,8 +3,8 @@ from werkzeug.security import generate_password_hash
 
 admins = [
     {
-        "username": "صلاح",
-        "email": "admin1@example.com",
+        "username": "admin",
+        "email": "",
         "password": "admin123"
     },
     {

@@ -32,25 +32,6 @@ app.register_blueprint(forgot_bp)
 def h():
     return render_template("public/index.html")
 
-#@app.route("/f")
-#@login_required
-#def landing():
-#    tz = pytz.timezone("Africa/Tripoli")
-#    now = datetime.now(tz)
-#    current_time = now.strftime("%Y-%m-%d")
-#    username = session.get('username', 'ضيف')
-#   # تحديد التحية حسب الوقت
-#    hour = now.hour
-#    if 5 <= hour < 12:
-#        greeting = "صباح الخير"
-#    elif 12 <= hour < 17:
-#        greeting = "مساء النور"
-#    else:
-#        greeting = "مساء الخير"
-#    
-#    return render_template("public/landing.html",
-#             current_time=current_time, username=username, greeting=greeting)
-#
 
 @app.route("/server")
 @login_required
@@ -112,20 +93,21 @@ def show_page(slug):
         abort(404)
     return render_template('shared/page.html', page=page)
 
-from models.user import User
+
+from models import user
 
 def create_admin():
-    email = "saaadqutub@gmail.com"
-    password = "123456"  # كلمة المرور الأصلية
-    admin = User.get_by_email(email)
+    email = "thaaraaa190@gmail.com"
+    password = "IOP_890i"  # كلمة المرور الأصلية
+    admin = user.User.get_by_email(email)
 
     if admin:
         print("⚠️ الأدمن موجود مسبقًا:", email)
         return
 
-    new_admin = User(
-        username="admin",
-        name="salah",
+    new_admin = user.User(
+        username="adminn",
+        name="thara",
         email=email,
         role="admin",
         is_verified=True
@@ -137,7 +119,6 @@ def create_admin():
 
 if __name__ == "__main__":
     create_admin()
-
 # ==============================
 # 4️⃣ تشغيل السيرفر
 # ==============================

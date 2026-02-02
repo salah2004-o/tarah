@@ -3,9 +3,18 @@ import os
 from dotenv import load_dotenv
 
 # تحميل المتغيرات من ملف .env
+
+# تحميل المتغيرات من ملف .env
 load_dotenv()
-SECRET_KEY = os.getenv("SECRET_KEY")  # غيّرها لأي مفتاح قوي
-SESSION_TYPE = os.getenv("SESSION_TYPE", "filesystem")  # القيمة الافتراضية filesystem
+
+# ====== إعدادات Flask الأساسية ======
+SECRET_KEY = os.getenv("SECRET_KEY")  # مفتاح قوي للجلسة
+
+
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = "Lax"
+
 # إعدادات البريد
 EMAIL_USER = os.getenv("EMAIL_USER")
 EMAIL_PASS = os.getenv("EMAIL_PASS")  # استخدم كلمة مرور التطبيق من Gmail
@@ -18,3 +27,4 @@ DB_PORT = os.getenv("DB_PORT", "5432")       # القيمة الافتراضية
 
 APP_URL = os.getenv("APP_URL")  # URL التطبيق، مثل http://localhost:5000
 # إعدادات أخرى يمكن إضافتها هنا حسب الحاجة
+

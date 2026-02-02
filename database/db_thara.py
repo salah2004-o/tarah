@@ -1,17 +1,14 @@
-#ثراء\backend\database\db_thara.py
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#ثراء\backend\database\db_th
 import psycopg2
-from config.settings import DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS
+from config import settings
 # إعداد الاتصال بقاعدة البيانات
 def get_connection():
     return psycopg2.connect(
-        dbname=DB_NAME,
-        user=DB_USER,
-        password=DB_PASS,
-        host=DB_HOST,
-        port=DB_PORT
+        dbname=settings.DB_NAME,
+        user=settings.DB_USER,
+        password=settings.DB_PASS,
+        host=settings.DB_HOST,
+        port=settings.DB_PORT
     )
 
 # إنشاء الجداول
