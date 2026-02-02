@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وكالة الثراء والخدمات الرقمية</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #c9a66b;
+            --dark-green: #052c25;
+            --light-bg: #f5f1eb;
+            --deep-brown: #551b07;
+            --text-white: #ffffff;
+            --text-gray: #c5c1c1;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            width: 100%;
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+        }
+
+        /* --- القائمة الجانبية (جهة اليسار) --- */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: var(--dark-green);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: -280px; /* مخفية لجهة اليسار */
+            right: auto;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-top: 60px;
+            z-index: 9999;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+        }
+
+        .sidebar.active {
+            left: 0; /* تظهر عند التفعيل */
+        }
+
+        .sidebar .nav-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar .nav-menu li {
+            padding: 12px 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .sidebar .nav-menu li a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar .nav-menu li a:hover {
+            color: var(--primary-color);
+            padding-left: 10px; /* حركة بسيطة لجهة اليمين عند الهوفر */
+        }
+
+        /* --- زر القائمة (جهة اليسار) --- */
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px; /* تم نقله لليسار */
+            right: auto;
+            font-size: 24px;
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            z-index: 10000;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* --- الهيدر --- */
+        .header {
+            background-color: var(--dark-green);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-primary:hover {
+            background-color: #b08d55 !important;
+        }
+
+        /* --- قسم الهيرو --- */
+        .hero-home {
+            padding: 4rem 5%;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content-home {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-right img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .hero-left h1 {
+            font-size: 4rem;
+            color: var(--dark-green);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-images-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .hero-images-grid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        /* --- قسم القيم --- */
+        .values-section {
+            padding: 80px 5%;
+            background: #fff;
+        }
+
+        .values-hero {
+            position: relative;
+            height: 300px;
+            border-radius: 25px;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+
+        .values-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .values-title {
+            position: absolute;
+            top: 50%;
+            right: 50px;
+            transform: translateY(-50%);
+            font-size: 4rem;
+            color: var(--text-white);
+            z-index: 2;
+        }
+
+        .values-hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .values-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+        }
+
+        .values-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .value-card {
+            background: var(--deep-brown);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            background: var(--dark-green);
+        }
+
+        /* --- قسم لماذا نحن --- */
+        .why-us-section {
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .why-us-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .why-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        /* --- الفوتر --- */
+        .footer {
+            background: var(--dark-green);
+            color: white;
+            padding: 80px 5% 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        /* --- استعلامات الوسائط --- */
+        @media (max-width: 992px) {
+            .hero-content-home, .values-content {
+                grid-template-columns: 1fr;
+            }
+            .hero-left h1 { font-size: 2.5rem; }
+            .values-title { font-size: 2.5rem; right: 20px; }
+            .nav-buttons { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="menuBtn" class="menu-btn"><i class="fas fa-bars"></i></button>
+
+    <div class="sidebar" id="sidebar">
+        <ul class="nav-menu">
+            <li style="padding: 10px 25px; color: var(--primary-color); font-size: 1rem; border-bottom: 2px solid rgba(201, 166, 107, 0.2);">
+                أهلاً {{ username }} <br> 
+                <small style="color: #fff; opacity: 0.7;">{{ current_time }}</small>
+            </li>
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="{{ url_for('login.account') }}">حسابي</a></li>
+            <li><a href="{{ url_for('profile') }}">من نحن</a></li>
+            <li><a href="{{ url_for('server') }}">خدماتنا</a></li>
+            <li><a href="{{ url_for('logout') }}" style="color: #ff4d4d;">تسجيل الخروج</a></li>
+        </ul>
+    </div>
+
+    <div class="page" id="home">
+        <header class="header">
+            <nav class="navbar">
+                <a href="#" class="logo">الثراء</a>
+                <div class="nav-buttons">
+                    <a href="{{ url_for('profile') }}" style="color: white; margin-left: 20px; text-decoration: none;">من نحن</a>
+                    <a href="{{ url_for('server') }}" class="btn-primary" style="background: var(--primary-color); padding: 12px 25px; border-radius: 25px; text-decoration: none; color: white; font-weight: bold;">اطلب خدمتك</a>
+                </div>
+            </nav>
+        </header>
+
+        <section class="hero-home">
+            <div class="hero-content-home">
+                <div class="hero-left">
+                    <h1>حيث تبدأ <br><span style="color: var(--primary-color);">الأفكار...</span></h1>
+                    <h3 style="color: #333;">وتتحول إلى إنجازات واقعية</h3>
+                    <div class="hero-images-grid">
+                        <img src="/static/images/1.png" alt="1">
+                        <img src="/static/images/2.png" alt="2">
+                        <img src="/static/images/3.png" alt="3">
+                        <img src="/static/images/4.png" alt="4">
+                    </div>
+                    <p style="color: #555; font-size: 1.2rem;">في الثراء، لا نكرر ما في السوق.. نحن نخلق بصمة تجعل علامتك التجارية قصة نجاح تُحكى.</p>
+                </div>
+                <div class="hero-right">
+                    <img src="/static/images/1.png" alt="الرئيسية">
+                </div>
+            </div>
+        </section>
+
+        <section class="values-section">
+            <div class="values-hero">
+                <img src="/static/images/k.png" alt="قيمنا"> 
+                <h2 class="values-title">قيمنا</h2>
+            </div>
+            <div class="values-content">
+                <div class="values-cards">
+                    <div class="value-card">
+                        <h3>الإبداع</h3>
+                        <p>لا نكرر ما يُفعل، بل نخلق مالم يُفعل بعد.</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>الشفافية</h3>
+                        <p>الوضوح هو أساس الثقة، والثقة هي أولى خطوات النجاح.</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>الجرأة</h3>
+                        <p>الأفكار العادية لا تصنع الثراء، نختار الجرأة للتميز.</p>
+                    </div>
+                    <div class="value-card">
+                        <h3>الالتزام</h3>
+                        <p>ما نعد به ننجزه، الالتزام لدينا مبدأ وليس خياراً.</p>
+                    </div>
+                </div>
+                <div style="padding: 20px; border-right: 4px solid var(--primary-color);">
+                    <h2 style="color: var(--dark-green);">من هنا ننطلق...</h2>
+                    <p style="color: #444; line-height: 2;">الثراء لا يُبنى صدفة، بل على أساس مبادئ ثابتة توجه كل خطوة نخطوها. من الشفافية التي نكسب بها الثقة، إلى الإبداع الذي نصنع به الفارق.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-us-section">
+            <h2 style="font-size: 2.5rem; color: var(--dark-green);">لماذا الثراء؟</h2>
+            <div class="why-us-cards">
+                <div class="why-card">
+                    <span style="font-size: 3rem; font-weight: 800; color: var(--primary-color); opacity: 0.3;">01</span>
+                    <h3>الثراء يُصنع</h3>
+                    <p>نصنعه بخطة مدروسة لا بالحظ، كل خطوة محسوبة للوصول للربح.</p>
+                </div>
+                <div class="why-card">
+                    <span style="font-size: 3rem; font-weight: 800; color: var(--primary-color); opacity: 0.3;">02</span>
+                    <h3>تميز في الزحام</h3>
+                    <p>ندرس السوق، نفهم الجمهور، ونصمم حضورك بطريقة تجعلك الوحيد في مجالك.</p>
+                </div>
+                <div class="why-card">
+                    <span style="font-size: 3rem; font-weight: 800; color: var(--primary-color); opacity: 0.3;">03</span>
+                    <h3>حول أفكارك لأرباح</h3>
+                    <p>إذا قررت أن تبدأ فعلاً، فنحن هنا لنحول خططك إلى نتائج ملموسة.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1400px; margin: 0 auto;">
+            <div>
+                <h2 style="color: var(--primary-color);">الثراء</h2>
+                <p>نصنع مستقبلك الرقمي بشغف وإبداع.</p>
+            
+                <div class="social-icons">
+                    <a href="https://www.tiktok.com/@thar_a1?_r=1" target="_blank">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+            
+                    <a href="https://snapchat.com/t/2QDQUOHx" target="_blank">
+                        <i class="fab fa-snapchat"></i>
+                    </a>
+            
+                    <a href="https://www.instagram.com/tha.ra190" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+            
+                    <a href="https://wa.me/218921339992" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+            
+                    <a href="https://www.facebook.com/share/1DUTXjErxV/" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h3>روابط سريعة</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: var(--text-gray); text-decoration: none;">الرئيسية</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: var(--text-gray); text-decoration: none;">خدماتنا</a></li>
+                    <li style="margin-bottom: 10px;"><a href="#" style="color: var(--text-gray); text-decoration: none;">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>تواصل معنا</h3>
+                <p><i class="fas fa-envelope"></i> thaaraaa190@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +218 92 133 9992 </p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            <p>جميع الحقوق محفوظة لصالح <strong>الثراء ®</strong> 2026</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const sidebar = document.getElementById("sidebar");
+
+        menuBtn.onclick = function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle("active");
+            // تغيير الأيقونة عند الفتح
+            const icon = menuBtn.querySelector('i');
+            if (sidebar.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        };
+
+        document.onclick = function(e) {
+            if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                sidebar.classList.remove("active");
+                menuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            }
+        };
+    </script>
+</body>
+</html>

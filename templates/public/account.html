@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي - الثراء</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        :root {
+            --dark-green: #052c25;
+            --primary-gold: #c9a66b;
+            --light-beige: #f5f1eb;
+            --danger-red: #a63d3d;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--light-beige);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .profile-card {
+            background: white;
+            width: 100%;
+            max-width: 550px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border: 1px solid rgba(201, 166, 107, 0.2);
+        }
+
+        /* الجزء العلوي الملون */
+        .profile-header {
+            background: linear-gradient(135deg, var(--dark-green) 0%, #0a4036 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto -90px;
+            position: relative;
+            border: 5px solid var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .avatar-container i {
+            font-size: 60px;
+            color: var(--dark-green);
+        }
+
+        /* جزء البيانات */
+        .profile-body {
+            padding: 100px 40px 40px;
+            text-align: center;
+        }
+
+        .profile-body h2 {
+            margin: 0;
+            color: var(--dark-green);
+            font-size: 1.8rem;
+        }
+
+        .profile-body p.subtitle {
+            color: var(--primary-gold);
+            margin: 5px 0 30px;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .info-item {
+            background: var(--light-beige);
+            padding: 15px 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .info-item:hover {
+            border-color: var(--primary-gold);
+            transform: scale(1.02);
+        }
+
+        .info-label {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            color: var(--dark-green);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* الأزرار */
+        .actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.4s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-edit {
+            background-color: var(--dark-green);
+            color: var(--primary-gold);
+            border: 1px solid var(--dark-green);
+        }
+
+        .btn-edit:hover {
+            background-color: var(--primary-gold);
+            color: white;
+            border-color: var(--primary-gold);
+        }
+
+        .btn-logout {
+            background-color: transparent;
+            color: var(--danger-red);
+            border: 1px solid var(--danger-red);
+        }
+
+        .btn-logout:hover {
+            background-color: var(--danger-red);
+            color: white;
+        }
+
+        @media (max-width: 480px) {
+            .profile-card { margin: 20px; }
+            .actions { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="avatar-container">
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
+
+        <div class="profile-body">
+            <h2>مرحباً، {{ user.username }}</h2>
+            <p class="subtitle">عضو في مجتمع الثراء</p>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-user"></i> اسم المستخدم</span>
+                    <span class="info-value">{{ user.username }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-envelope"></i> البريد الإلكتروني</span>
+                    <span class="info-value">{{ user.email }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label"><i class="fas fa-shield-alt"></i> حالة الحساب</span>
+                    <span class="info-value" style="color: #27ae60;">نشط</span>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="{{ url_for('login.account_settings') }}" class="btn btn-edit">
+                    <i class="fas fa-user-edit"></i> تعديل البيانات
+                </a>
+                <a href="{{ url_for('login.login') }}" class="btn btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

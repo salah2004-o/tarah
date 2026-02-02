@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل الحساب - الثراء</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+        :root {
+            --dark-green: #052c25;
+            --primary-gold: #c9a66b;
+            --light-beige: #f5f1eb;
+            --soft-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--dark-green) 0%, #0a4036 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .edit-container {
+            background: var(--soft-white);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 1px solid rgba(201, 166, 107, 0.2);
+            animation: fadeIn 0.6s ease;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--dark-green);
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background: var(--primary-gold);
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: right;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-right: 5px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-gold);
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 45px 14px 15px;
+            font-size: 1rem;
+            border-radius: 12px;
+            border: 1.5px solid #eee;
+            font-family: 'Cairo', sans-serif;
+            transition: 0.3s;
+            box-sizing: border-box;
+            background: #fafafa;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            background: white;
+            box-shadow: 0 0 10px rgba(201, 166, 107, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            border: none;
+            background: var(--dark-green);
+            color: var(--primary-gold);
+            cursor: pointer;
+            transition: 0.4s;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        button:hover {
+            background: var(--primary-gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(201, 166, 107, 0.3);
+        }
+
+        .btn-back {
+            text-align: center;
+            text-decoration: none;
+            padding: 12px;
+            font-size: 0.95rem;
+            color: #666;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-back:hover {
+            background: #f5f5f5;
+            color: var(--dark-green);
+            border-color: #ccc;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            .edit-container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="edit-container">
+        <h2>تعديل بيانات الحساب</h2>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="name">الاسم الجديد</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user-edit"></i>
+                    <input type="text" id="name" name="name" placeholder="أدخل اسمك" value="{{ user.username }}" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope-open"></i>
+                    <input type="email" id="email" name="email" placeholder="example@email.com" value="{{ user.email }}" required>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">حفظ التغييرات</button>
+                <a class="btn-back" href="{{ url_for('login.account') }}">إلغاء والرجوع للملف الشخصي</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>تحرير الصفحة - ثراء</title>
+  <style>
+    body{font-family:Arial;padding:20px}
+    .form{max-width:800px;margin:0 auto}
+    label{display:block;margin-top:12px}
+    input[type=text], textarea{width:100%;padding:8px;margin-top:6px}
+    .btn{display:inline-block;margin-top:12px;padding:8px 12px;background:#1976d2;color:#fff;border-radius:6px;text-decoration:none}
+  </style>
+</head>
+<body>
+  <h1>{% if page %}تعديل الصفحة{% else %}إنشاء صفحة جديدة{% endif %}</h1>
+  <div class="form">
+    <form method="post" enctype="multipart/form-data">
+      <label>عنوان الصفحة <input type="text" name="title" value="{{ page.title if page }}" required></label>
+      <label>slug (معرف الرابط) <input type="text" name="slug" value="{{ page.slug if page }}" required></label>
+      <label>محتوى (HTML) <textarea name="content" rows="8">{{ page.content if page }}</textarea></label>
+
+      <label>لون الخلفية <input type="text" name="bg_color" value="{{ page.bg_color if page else '#ffffff' }}" placeholder="#ffffff" required></label>
+      <label>لون النص <input type="text" name="text_color" value="{{ page.text_color if page else '#000000' }}" placeholder="#000000" required></label>
+
+      <label>صورة رئيسية <input type="file" name="image"></label>
+
+      <button class="btn" type="submit">حفظ</button>
+      <a class="btn" href="/dashboard">إلغاء</a>
+    </form>
+  </div>
+</body>
+</html>

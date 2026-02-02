@@ -1,0 +1,593 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header Styles */
+.header {
+    background-color: #052c25;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #c9a66b;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background-color: #c9a66b;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+.btn-primary:hover {
+    background-color: #b39560;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+/* Services Section */
+.services {
+    padding: 4rem 0;
+    background-color: #f5f1eb;
+}
+
+.service-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.service-header h2 {
+    font-size: 2.5rem;
+    color: #2d4a3e;
+    margin-bottom: 1rem;
+}
+
+.service-header h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.service-header p {
+    max-width: 700px;
+    margin: 2rem auto;
+    color: #666;
+}
+
+.btn-learn-more {
+    background-color: #8b6f47;
+    color: white;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-learn-more:hover {
+    background-color: #75603c;
+}
+
+/* Heritage Section */
+.heritage-section {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin: 4rem 0;
+}
+
+.heritage-images {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.heritage-images img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.heritage-text {
+    flex: 1;
+    text-align: center;
+}
+
+.heritage-text h2 {
+    font-size: 3rem;
+    color: #052c25;
+    margin-bottom: 0.5rem;
+}
+
+/* Why Choose Us */
+.why-choose-us {
+    margin: 4rem 0;
+}
+
+.why-choose-us h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2d4a3e;
+    margin-bottom: 3rem;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.feature {
+    text-align: center;
+    padding: 2rem;
+}
+
+.feature-number {
+    font-size: 3rem;
+    color: #c9a66b;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.feature h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #2d4a3e;
+}
+
+.feature p {
+    color: #666;
+}
+
+/* Our Services Section */
+.our-services {
+    padding: 4rem 0;
+    background-color: #052c25;
+    color: white;
+}
+
+.our-services h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.service-card {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+.service-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.service-card h3 {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+/* Portfolio Section */
+.portfolio {
+    padding: 4rem 0;
+    background-color: #f5f1eb;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* ثلاث أعمدة متساوية */
+    gap: 1rem;
+}
+
+.portfolio-grid img {
+    width: 100%;      /* تمتد عرض العمود بالكامل */
+    height: 100%;     /* تمتد ارتفاع العمود بالكامل */
+    object-fit: cover; /* تغطي كامل مساحة العمود بدون تشويه */
+    border-radius: 10px;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+/* إذا تريد الصور تكون متساوية الارتفاع بشكل محدد لكل الصف */
+.portfolio-grid div {
+    height: 300px;  /* ارتفاع كل عنصر داخل الشبكة */
+    overflow: hidden; /* إخفاء أي زوائد */
+}
+
+.portfolio-grid img:hover {
+    transform: scale(1.05);
+}
+
+/* Contact Section */
+.contact {
+    padding: 4rem 0;
+    background-color: #052c25;
+    color: white;
+}
+
+.contact h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.contact h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.quick-links {
+    list-style: none;
+    margin: 2rem 0;
+}
+
+.quick-links li {
+    margin-bottom: 0.5rem;
+}
+
+.quick-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.quick-links a:hover {
+    color: #c9a66b;
+}
+
+.email {
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 2rem 0;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.social-icons a {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.social-icons a:hover {
+    background-color: #c9a66b;
+}
+
+.footer-logo {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .features {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .heritage-section {
+        flex-direction: column;
+    }
+    
+    .heritage-images {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+
+.logo-sub {
+    font-size: 14px;
+    color: #d4af37; /* ذهبي */
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #d1cdab; /* أو غيّر حسب لون الشعار الأساسي */
+}
+.hero {
+    background-image: url("images/hero-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white(243, 238, 238);
+    padding: 100px 20px;
+    text-align: center;
+}
+/* */
+.services {
+  position: relative;
+  padding: 120px 80px;
+  background-color: #f7f4f0;
+  direction: rtl;
+  color: #4a3b32;
+  overflow: hidden;
+}
+
+/* الشعار في الزاوية */
+.corner-logo {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  text-align: right;
+}
+.corner-sub {
+  font-size: 14px;
+  color: #c5a25f;
+  margin: 0;
+}
+.corner-main {
+  font-size: 38px;
+  font-weight: 800;
+  color: #3e2723;
+  margin: -5px 0 0;
+}
+
+/* النصوص */
+.service-content {
+  text-align: center;
+  margin-top: 100px;
+}
+.service-title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #3e2723;
+  margin-bottom: 25px;
+}
+
+/* العبارتان 
+.service-lines {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px auto;
+  max-width: 800px;
+}
+.line-right, .line-left {
+  font-size: 26px;
+  font-weight: 700;
+  color: #5c4033;
+  width: 45%;
+}
+.line-right {
+  text-align: right;
+}
+.line-left {
+  text-align: left;
+}
+*/
+.main-line {
+    font-size: 28px;
+    font-weight: 700;
+    color: #623e2a; /* أو اللون الأساسي */
+    margin-bottom: 8px;
+}
+
+.sub-line {
+    font-size: 20px;
+    font-weight: 400;
+    color: #623e2a; /* برتقالي فاتح أو تقدر تخليه رمادي فاتح */
+    margin-top: 0;
+}
+
+/* الفقرة */
+.service-desc {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #6d4c41;
+  max-width: 750px;
+  margin: 0 auto 60px;
+}
+
+/* الزر + الصورة */
+.cta-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.btn-learn-more {
+  background-color: #6d4c41;
+  color: #fff;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.btn-learn-more:hover {
+  background-color: #5a3c33;
+}
+.cta-image {
+  width: 420px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* للموبايل */
+@media (max-width: 768px) {
+  .service-lines {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  .line-right, .line-left {
+    width: 100%;
+    text-align: center;
+  }
+  .cta-section {
+    flex-direction: column-reverse;
+  }
+  .cta-image {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+/* Contact Section Enhancements السطر 306 */
+.quick-links li {
+    margin-bottom: 0.7rem;
+}
+
+.quick-links a,
+.quick-links .contact-mail {
+    display: block;
+    padding: 0.4rem 0.6rem;
+    color: #e8e8e8;
+    font-size: 1.1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s ease;
+}
+
+.quick-links a:hover,
+.quick-links .contact-mail:hover {
+    color: #c9a66b;
+    background: rgba(255, 255, 255, 0.05);
+    padding-left: 1rem;
+}

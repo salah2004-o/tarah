@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وكالة ثراء | حيث يصنع المجد المالي</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-gold: #c9a66b;
+            --dark-green: #052c25;
+            --light-bg: #f5f1eb;
+            --text-white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--light-bg); color: #333; line-height: 1.6; }
+
+        /* --- الهيدر --- */
+        .header { background-color: var(--dark-green); padding: 1rem 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary-gold); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+        .logo-container { color: var(--primary-gold); text-align: center; }
+        .logo-sub { font-size: 0.8rem; letter-spacing: 2px; margin-bottom: -5px; color: white; }
+        .logo { font-size: 1.8rem; font-weight: bold; }
+        
+        .nav-menu { display: flex; list-style: none; gap: 2rem; }
+        .nav-menu a { color: white; text-decoration: none; transition: 0.3s; font-weight: 500; }
+        .nav-menu a:hover { color: var(--primary-gold); }
+
+        .btn-primary { background: var(--primary-gold); color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .btn-secondary { color: white; text-decoration: none; margin-left: 15px; border: 1px solid var(--primary-gold); padding: 8px 18px; border-radius: 25px; }
+        .btn-primary:hover { background: #b08d55; }
+
+        /* --- قسم الهيرو --- */
+        .hero { 
+            height: 80vh; 
+            background: linear-gradient(rgba(5, 44, 37, 0.8), rgba(5, 44, 37, 0.8)), url('/static/images/hero-bg.png'); 
+            background-size: cover; 
+            background-position: center;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+            padding: 0 5%;
+        }
+        .hero-title { font-size: 4rem; color: var(--primary-gold); margin-bottom: 20px; }
+        .hero-subtitle { max-width: 800px; font-size: 1.2rem; line-height: 1.8; opacity: 0.9; }
+
+        /* --- قسم التعريف --- */
+        .services { padding: 80px 5%; background: white; position: relative; }
+        .corner-logo { position: absolute; top: 40px; right: 40px; color: var(--dark-green); opacity: 0.1; }
+        .service-content { text-align: center; max-width: 900px; margin: 0 auto; }
+        .service-title { font-size: 3rem; color: var(--dark-green); margin-bottom: 20px; }
+        .main-line { font-size: 2rem; color: var(--primary-gold); }
+        .sub-line { font-size: 1.5rem; margin-bottom: 30px; }
+        .service-desc { font-size: 1.2rem; color: #666; margin-bottom: 40px; }
+
+        .cta-section { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+        .btn-learn-more { background: var(--dark-green); color: var(--primary-gold); padding: 15px 40px; border: 2px solid var(--primary-gold); border-radius: 30px; cursor: pointer; font-size: 1.1rem; font-weight: bold; transition: 0.4s; }
+        .btn-learn-more:hover { background: var(--primary-gold); color: white; transform: scale(1.05); }
+        .cta-image { width: 100%; max-width: 1000px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        /* --- قسم التراث (الصور المتحركة) --- */
+        .heritage-section { padding: 60px 0; background: var(--dark-green); overflow: hidden; }
+        .heritage-images { display: flex; gap: 20px; animation: scroll 30s linear infinite; }
+        .heritage-images img { width: 300px; height: 400px; object-fit: cover; border-radius: 15px; border: 2px solid var(--primary-gold); }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+
+        .heritage-text { text-align: center; color: var(--primary-gold); padding: 40px 0; font-size: 2rem; font-weight: 900; }
+
+        /* --- لماذا الثراء --- */
+        .why-choose-us { padding: 100px 5%; background: var(--light-bg); text-align: center; }
+        .why-choose-us h2 { font-size: 3rem; color: var(--dark-green); margin-bottom: 60px; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; position: relative; overflow: hidden; }
+        .feature:hover { transform: translateY(-10px); background: var(--dark-green); color: white; }
+        .feature-number { font-size: 4rem; font-weight: 900; color: var(--primary-gold); opacity: 0.2; position: absolute; top: 10px; left: 20px; }
+        .feature h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-gold); }
+
+        /* --- بطاقات الخدمات --- */
+        .our-services { padding: 100px 5%; background: white; text-align: center; }
+        .service-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+        .service-card { padding: 20px; border-radius: 20px; transition: 0.4s; cursor: pointer; }
+        .service-card img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 20px; transition: 0.4s; }
+        .service-card:hover img { transform: scale(1.1); }
+        .service-card h3 { color: var(--dark-green); font-size: 1.4rem; }
+
+        /* --- الفوتر --- */
+        .contact { background: var(--dark-green); color: white; padding: 80px 5% 40px; text-align: center; border-top: 4px solid var(--primary-gold); }
+        .quick-links { display: flex; justify-content: center; gap: 30px; list-style: none; margin: 40px 0; flex-wrap: wrap; }
+        .quick-links a { color: var(--primary-gold); text-decoration: none; font-size: 1.1rem; }
+        .footer-logo { opacity: 0.6; font-size: 0.9rem; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .nav-menu { display: none; }
+            .heritage-images img { width: 200px; height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo-container">
+                <p class="logo-sub">حلمك</p>
+                <div class="logo">الثراء</div>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="{{ url_for('server') }}">خدماتنا</a></li>
+                <li><a href="{{ url_for('profile') }}">عن الشركة</a></li>
+                <li><a href="mailto:thazraa2019@gmail.com">اتصل بنا</a></li>
+            </ul>
+
+            <div class="nav-buttons">
+                <a href="{{ url_for('login.login') }}" class="btn-secondary">تسجيل دخول</a>
+                <a href="{{ url_for('register.register_user') }}" class="btn-primary">انشاء حساب</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">نورتونا في الثراء</h1>
+            <p class="hero-subtitle">نحن لا نقدم مجرد خدمات، نحن نروي قصص النجاح العربية بروح حديثة وإمكانيات غير محدودة. انطلق معنا نحو آفاق استثمارية جديدة.</p>
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <div class="service-content">
+                <h2 class="service-title">فلسفة الثراء</h2>
+                <div class="service-lines">
+                    <h3 class="main-line">نحن لا نبيع خدمات...</h3>
+                    <p class="sub-line">نحن نصنع تجربة نمو متكاملة</p>
+                </div>
+                <p class="service-desc">
+                    نؤمن أن التسويق هو استراتيجية بناء مجد مالي طويل الأمد. نحن شريكك في تحويل الأفكار الإبداعية إلى أصول تدر أرباحاً واقعية.
+                </p>
+            </div>
+
+            <div class="cta-section">
+                <a href="{{ url_for('profile') }}">
+                    <button class="btn-learn-more">اكتشف رحلتنا</button>
+                </a>
+                <img src="{{ url_for('static', filename='images/learn-banner.png') }}" alt="الثراء" class="cta-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="heritage-section">
+        <div class="heritage-images">
+            <img src="{{ url_for('static', filename='images/6.jpg') }}" alt="تراث">
+            <img src="{{ url_for('static', filename='images/7.jpg') }}" alt="تراث">
+            <img src="{{ url_for('static', filename='images/8.jpg') }}" alt="تراث">
+            <img src="{{ url_for('static', filename='images/9.jpg') }}" alt="تراث">
+            <img src="{{ url_for('static', filename='images/10.jpg') }}" alt="تراث">
+            <img src="{{ url_for('static', filename='images/11.jpg') }}" alt="تراث">
+        </div>
+        <div class="heritage-text">
+            <span>نرَوِّي . لِلْعَالَمِ . مِنْ نَحْنُ</span>
+        </div>
+    </section>
+
+    <section class="why-choose-us">
+        <h2>لِمَاذَا الثراء؟</h2>
+        <div class="features">
+            <div class="feature">
+                <span class="feature-number">01</span>
+                <h3>صناعة الثراء</h3>
+                <p>الثراء لا يحدث بالصدفة، بل بخطة مدروسة. نحول خططك إلى نتائج ملموسة وأفكارك إلى أرباح حقيقية.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-number">02</span>
+                <h3>التميز في الزحام</h3>
+                <p>في عالم مليء بالمنافسين، نصمم حضورك بطريقة تجعل علامتك التجارية هي الخيار الأول والوحيد.</p>
+            </div>
+            <div class="feature">
+                <span class="feature-number">03</span>
+                <h3>استراتيجية الربح</h3>
+                <p>كل خطوة نخطوها محسوبة بدقة لضمان وصولك إلى ربح حقيقي واستدامة في السوق.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="our-services" id="services">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; color: var(--dark-green);">حلولنا الإبداعية</h2>
+            <div class="service-cards">
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/se3.png') }}" alt="تسويق">
+                    <h3>الخدمات الإعلانية والتسويق</h3>
+                </div>
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/se2.png') }}" alt="برمجة">
+                    <h3>تطوير المواقع والذكاء الاصطناعي</h3>
+                </div>
+                <div class="service-card">
+                    <img src="{{ url_for('static', filename='images/se1.png') }}" alt="تصميم">
+                    <h3>التصميم الجرافيكي والهوية البصرية</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="contact">
+        <h2>الثراء</h2>
+        <h3>نصنع مستقبلك الرقمي بشغف</h3>
+        <ul class="quick-links">
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="{{ url_for('server') }}">خدماتنا</a></li>
+            <li><a href="{{ url_for('profile') }}">من نحن</a></li>
+            <li><a href="mailto:thazraa2019@gmail.com">تواصل معنا مباشر</a></li>
+        </ul>
+        <div class="footer-logo">
+            <p>© 2026 وكالة الثراء الرقمية. جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+</body>
+</html>

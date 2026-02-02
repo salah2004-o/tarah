@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الثراء  - تسجيل الدخول</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="logo-section">
+      <div class="logo-text">الثراء</div>
+      <div class="logo-subtitle">حيث يصنع المجد المالي</div>
+      <p id="liveClock" class="clock"></p>
+    </div>
+
+    <h1>تسجيل الدخول</h1>
+
+    <div class="error-message" id="errorMessage"></div>
+    <div class="success-message" id="successMessage">تم تسجيل الدخول بنجاح!</div>
+
+    <form action="/login" method="POST" onsubmit="return validateLogin()">
+      <div class="form-group">
+        <label for="email">البريد الإلكتروني</label>
+        <div class="input-wrapper">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="email" name="email" placeholder="example@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">كلمة المرور</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required minlength="6">
+        </div>
+      </div>
+
+
+
+      <button type="submit">دخول إلى حسابي</button>
+    </form>
+
+    <div class="divider">
+      <span>أو</span>
+    </div>
+
+    <div class="register-link">
+      ليس لديك حساب؟ <a href="/register">ابدأ رحلة الثراء الآن</a>
+    </div>
+  </div>
+
+  <script>
+    function validateLogin() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        showError('الرجاء إدخال بريد إلكتروني صحيح!');
+        return false;
+      }
+
+      if (password.length < 6) {
+        showError('كلمة المرور يجب أن تكون 6 أحرف على الأقل!');
+        return false;
+      }
+      return true;
+    }
+
+    function showError(message) {
+      const errDiv = document.getElementById('errorMessage');
+      errDiv.textContent = message;
+      errDiv.style.display = 'block';
+      setTimeout(() => { errDiv.style.display = 'none'; }, 4000);
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const hour = now.getHours();
+      let greeting = (hour < 12) ? "صباح الخير 🌞" : (hour < 18) ? "مساء الخير 🌤️" : "مساء الخير 🌙";
+      document.getElementById("liveClock").innerText = `${greeting} | ${now.toLocaleTimeString('ar-SA')}`;
+    }
+    
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+
+</body>
+</html>

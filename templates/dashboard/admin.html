@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>لوحة التحكم - ثراء</title>
+  <style>
+    :root {
+      /* 🎨 ألوان ثراء */
+      --primary-green: #2d4a3e;
+      --primary-green-dark: #1a3d32;
+      --primary-gold: #c9a66b;
+      --primary-beige: #f5f1eb;
+      --gold-dark: #b39560;
+      --text-secondary: #666;
+    }
+
+    body {
+      font-family: "Cairo", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--primary-green-dark) 0%, var(--primary-green) 100%);
+      color: var(--primary-beige);
+      margin: 0;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: var(--primary-gold);
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #fff 0%, var(--primary-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn {
+      background-color: var(--primary-green);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-gold);
+      box-shadow: 0 5px 20px rgba(201, 166, 107, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .page-list {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: var(--primary-beige);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .page-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      border: 2px solid var(--primary-gold);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      background-color: #fff;
+      color: var(--primary-green-dark);
+      transition: all 0.3s ease;
+    }
+
+    .page-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(201, 166, 107, 0.4);
+    }
+
+    .actions a {
+      margin-left: 8px;
+    }
+
+    .page-item small {
+      color: var(--text-secondary);
+    }
+
+    p {
+      text-align: center;
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>لوحة التحكم</h1>
+  <p><a class="btn" href="/dashboard/pages/new">إضافة صفحة جديدة</a></p>
+
+  <div class="page-list">
+    {% if pages %}
+      {% for p in pages %}
+        <div class="page-item">
+          <div>
+            <strong>{{ p.title }}</strong><br>
+            <small>{{ p.slug }}</small>
+          </div>
+          <div class="actions">
+            <a class="btn" href="/dashboard/pages/{{ p.slug }}/edit">تعديل</a>
+            <a class="btn" href="/dashboard/pages/{{ p.slug }}/delete" onclick="return confirm('حذف الصفحة؟')">حذف</a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>لا توجد صفحات بعد.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

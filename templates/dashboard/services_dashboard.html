@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <title>لوحة الخدمات - ثراء</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+    :root {
+      --primary-green: #2d4a3e;
+      --dark-green: #052c25;
+      --primary-gold: #c9a66b;
+      --danger-red: #a63d3d;
+      --light-beige: #f5f1eb;
+      --transition: 0.3s ease;
+    }
+
+    body {
+      font-family: "Cairo", sans-serif;
+      background-color: var(--dark-green);
+      color: var(--light-beige);
+      margin: 0;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff 0%, var(--primary-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    /* أزرار الإضافة والرجوع */
+    .top-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .btn-add {
+      background-color: var(--primary-gold);
+      color: var(--dark-green) !important;
+      padding: 12px 25px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(201, 166, 107, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-add:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(201, 166, 107, 0.5);
+      background-color: #fff;
+    }
+
+    /* بطاقة الخدمة */
+    .service-card {
+      background-color: var(--light-beige);
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: var(--transition);
+      border: 1px solid rgba(201, 166, 107, 0.2);
+    }
+
+    .service-card:hover {
+      transform: scale(1.01);
+      border-color: var(--primary-gold);
+    }
+
+    .service-img {
+      width: 140px;
+      height: 140px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 2px solid var(--primary-gold);
+    }
+
+    .service-info {
+      flex-grow: 1;
+    }
+
+    .service-info h3 {
+      color: var(--dark-green);
+      margin: 0 0 10px 0;
+      font-size: 1.4rem;
+    }
+
+    .service-info p {
+      color: #555;
+      margin: 5px 0;
+      font-size: 0.95rem;
+    }
+
+    .service-info .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--primary-green);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-top: 5px;
+    }
+
+    /* الأزرار داخل البطاقة */
+    .service-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .action-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      min-width: 100px;
+    }
+
+    .edit-btn {
+      background-color: var(--primary-green);
+      color: white;
+    }
+
+    .edit-btn:hover { background-color: var(--dark-green); }
+
+    .delete-btn {
+      background-color: transparent;
+      color: var(--danger-red);
+      border: 1px solid var(--danger-red);
+    }
+
+    .delete-btn:hover {
+      background-color: var(--danger-red);
+      color: white;
+    }
+
+    /* حالة عدم وجود خدمات */
+    .empty-state {
+      text-align: center;
+      padding: 60px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      border: 2px dashed var(--primary-gold);
+    }
+
+    @media (max-width: 768px) {
+      .service-card { flex-direction: column; text-align: center; padding: 25px; }
+      .service-actions { flex-direction: row; width: 100%; justify-content: center; }
+      .top-actions { flex-direction: column; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>إدارة الخدمات</h1>
+      <p style="color: var(--primary-gold)">لوحة التحكم في محتوى وكالة ثراء</p>
+    </header>
+
+    <div class="top-actions">
+      <a class="btn-add" href="{{ url_for('admin.add_service') }}">
+        <i class="fas fa-plus"></i> إضافة خدمة جديدة
+      </a>
+      <a href="{{ url_for('login.landing_page') }}" style="color: var(--light-beige); text-decoration: none;">
+        <i class="fas fa-arrow-right"></i> العودة للموقع
+      </a>
+    </div>
+
+    <div class="services-list">
+      {% if services %}
+        {% for s in services %}
+          <div class="service-card">
+            <img src="{{ url_for('static', filename=s.image_url or 'uploads/default.jpg') }}" class="service-img" alt="صورة الخدمة">
+            
+            <div class="service-info">
+              <h3>{{ s.title }}</h3>
+              {% if s.description %}
+                <p>{{ s.description[:100] }}{% if s.description|length > 100 %}...{% endif %}</p>
+              {% endif %}
+              
+              <div>
+                {% if s.price %}
+                  <span class="badge"><i class="fas fa-tag"></i> {{ s.price }} ريال</span>
+                {% endif %}
+                {% if s.delivery_time %}
+                  <span class="badge"><i class="fas fa-clock"></i> {{ s.delivery_time }} يوم</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="service-actions">
+              <a href="{{ url_for('admin.edit_service', service_id=s.id) }}" class="action-btn edit-btn">
+                <i class="fas fa-edit"></i> تعديل
+              </a>
+              <a href="{{ url_for('admin.delete_service', service_id=s.id) }}" 
+                 class="action-btn delete-btn" 
+                 onclick="return confirm('هل أنت متأكد من حذف هذه الخدمة نهائياً؟')">
+                <i class="fas fa-trash"></i> حذف
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">
+          <i class="fas fa-folder-open" style="font-size: 3rem; color: var(--primary-gold); margin-bottom: 15px;"></i>
+          <p>قائمة الخدمات فارغة حالياً. ابدأ بإضافة أول خدمة!</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+</body>
+</html>
